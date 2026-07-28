@@ -1,18 +1,33 @@
 # Reason Remote Auto-Follow — Setup Guide
 
-This Stream Deck plugin makes your Stream Deck + follow whatever device you select in
-Reason. Select a Thor, the deck shows Thor's controls. Select a SubTractor, it switches
-to SubTractor. No button presses, no manual profile switching.
+This makes your Stream Deck + follow whatever device you select in Reason. Select a Thor,
+the deck shows Thor's controls. Select a SubTractor, it switches. No button presses, no
+manual profile switching.
 
-**The plugin on its own does nothing.** It listens for MIDI from a Remote codec that has
-to be installed into Reason, over virtual MIDI ports that have to be created first. Budget
-about 15 minutes for the one-time setup below. After that it just works.
-
-> Windows only. macOS is not supported yet — the virtual MIDI setup and the codec
-> installer are Windows-specific.
+**The plugin on its own does nothing.** It listens for MIDI from a Remote codec that has to
+be installed into Reason, over virtual MIDI ports that have to be created first. Budget
+about 20 minutes for the one-time setup. After that it just works.
 
 > Not affiliated with, or endorsed by, Reason Studios AB or Elgato. Reason and all Reason
 > device names are trademarks of their respective owners.
+
+---
+
+## The two control surfaces
+
+This installs **two** Reason control surfaces, both under manufacturer **Automate Pros**.
+They do different jobs and need their own MIDI port pair each.
+
+| Surface | Model | Ports (in / out) | What it does |
+| --- | --- | --- | --- |
+| **Auto-follow** | `Stream Deck+ Remote` | 1 / 2 | Instrument pages and the Document (track navigation) page. This is the surface that follows your selection in Reason. |
+| **Master** | `Stream Deck+ Master` | 3 / 4 | Master Section mixing. **Locked** to the Master Section, so it keeps working while an instrument is focused. |
+
+The Master surface is what lets you mix without losing your instrument page — that only
+works because it is locked, which is a manual step in Reason covered in Step 3.
+
+You can set up the auto-follow surface alone if you don't need the mixer, in which case you
+only need ports 1 and 2.
 
 ---
 
@@ -20,111 +35,151 @@ about 15 minutes for the one-time setup below. After that it just works.
 
 | | |
 | --- | --- |
-| Stream Deck + | The plugin ships profiles for the Stream Deck + (dials + touch strip) only |
+| Stream Deck + | The profiles are built for the Stream Deck + (dials + touch strip) |
 | Stream Deck software | 6.9 or newer |
 | Reason | Reason 12 or newer, or Reason Recon |
-| loopMIDI | Free, from [Tobias Erichsen](https://www.tobias-erichsen.de/software/loopmidi.html) |
-| The companion download | `Reason-StreamDeck-Remote.zip` — link on the Marketplace listing and on the [Releases page](https://github.com/Automate-Pros/reason-remote-setup/releases/latest) |
+| PowerShell 7 | Windows: [install pwsh](https://aka.ms/powershell) if you don't have it. macOS: `brew install --cask powershell` |
+| Virtual MIDI ports | Windows: [loopMIDI](https://www.tobias-erichsen.de/software/loopmidi.html). macOS: the built-in IAC Driver |
+| This download | `reason-remote-setup.zip` from the [Releases page](https://github.com/Automate-Pros/reason-remote-setup/releases/latest) |
+
+> **Windows and macOS.** The codec and both surfaces install on either. The **Auto-Follow
+> Stream Deck plugin is Windows-only** — on macOS you get working Reason surfaces that you
+> drive from a manually imported Stream Deck profile, but not automatic profile switching.
 
 ---
 
 ## Step 1 — Create the virtual MIDI ports
 
-Reason and the Stream Deck talk to each other over virtual MIDI cables. loopMIDI creates
-them.
+Reason and the Stream Deck talk over virtual MIDI cables. You need **four** for both
+surfaces (or just the first two if you're skipping the mixer).
+
+### Windows — loopMIDI
 
 1. Install and launch **loopMIDI**.
-2. In the box at the bottom left, type a port name and click **+**. Create these two:
-   - `loopMIDI Port 1`
-   - `loopMIDI Port 2`
-3. If you also want the **Master Section** profile on a second Stream Deck, add
-   `loopMIDI Port 3` and `loopMIDI Port 4` as well.
-4. Tick **Autostart** in loopMIDI's options so the ports come back after a reboot.
+2. In the box at the bottom left, type a name and click **+**. Create all four:
+   `loopMIDI Port 1`, `loopMIDI Port 2`, `loopMIDI Port 3`, `loopMIDI Port 4`.
+3. Tick **Autostart** in loopMIDI's options so the ports return after a reboot.
 
-The names must match exactly — the plugin looks for `loopMIDI Port 2` by default. (You can
-change the port name later in the plugin's settings if you need different names.)
+Names must match exactly — the plugin looks for `loopMIDI Port 2` by default. (You can
+change that in the plugin's settings if you need different names.)
 
-| Port | Carries |
+### macOS — IAC Driver
+
+1. Open **Audio MIDI Setup** → **Window** → **Show MIDI Studio**.
+2. Double-click **IAC Driver** and tick **Device is online**.
+3. Add four buses with the **+** button under Ports.
+
+### What each pair carries
+
+| Port | Direction |
 | --- | --- |
-| `loopMIDI Port 1` | Stream Deck → Reason (your knob turns and key presses) |
-| `loopMIDI Port 2` | Reason → Stream Deck (parameter feedback and the device-changed signal) |
-| `loopMIDI Port 3` / `4` | The same pair again, for the optional Master Section surface |
+| 1 | Stream Deck → Reason — knob turns and key presses (auto-follow surface) |
+| 2 | Reason → Stream Deck — parameter feedback and the device-changed signal |
+| 3 | Stream Deck → Reason (Master surface) |
+| 4 | Reason → Stream Deck (Master surface) |
 
 Never use one port for both directions — it feeds back on itself.
 
 ---
 
-## Step 2 — Install the Remote codec into Reason
+## Step 2 — Install the codec and maps
 
-Download and unzip `Reason-StreamDeck-Remote.zip`, then from that folder run:
+Unzip `reason-remote-setup.zip`, then from that folder:
+
+**Windows**
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\install-remote.ps1
+pwsh -NoProfile -ExecutionPolicy Bypass -File .\install-remote.ps1
 ```
 
-That copies the Lua codec and the Remote map into both of Reason's Remote folders:
+**macOS**
 
-```
-%PROGRAMDATA%\Propellerhead Software\Remote\Codecs\Lua Codecs\Community\
-%PROGRAMDATA%\Propellerhead Software\Remote\Maps\Community\
-%APPDATA%\Propellerhead Software\Remote\Codecs\Lua Codecs\Community\
-%APPDATA%\Propellerhead Software\Remote\Maps\Community\
+```bash
+pwsh ./install-remote.ps1
 ```
 
-If you'd rather copy them by hand, those are the four destinations — the codec files
-(`.lua`, `.luacodec`, `.png`) go in the `Codecs\Lua Codecs\Community` folders and the
-`.remotemap` goes in the `Maps\Community` folders.
+On macOS the system-wide location needs `sudo`. Without it the script installs to your user
+location only, which Reason reads perfectly well — so `sudo` is optional. Re-run with
+`sudo pwsh ./install-remote.ps1` if you want it available to every user.
+
+The script copies into Reason's Remote folders:
+
+| OS | Locations |
+| --- | --- |
+| Windows | `%PROGRAMDATA%\Propellerhead Software\Remote\` and `%APPDATA%\Propellerhead Software\Remote\` |
+| macOS | `/Library/Application Support/Propellerhead Software/Remote/` and `~/Library/Application Support/Propellerhead Software/Remote/` |
+
+Within each: codec files (`.lua`, `.luacodec`, `.png`) go to `Codecs/Lua Codecs/Automate Pros/`
+and the `.remotemap` files to `Maps/Automate Pros/`. You can copy them by hand instead if
+you prefer.
+
+> Upgrading from a version before 1.1? These surfaces used to ship under manufacturer
+> **Community**. The installer deletes those folders so Reason doesn't list both. You will
+> need to re-add the surfaces in Step 3 — Reason won't carry the old ones over.
 
 ---
 
-## Step 3 — Add the control surface in Reason
+## Step 3 — Add both surfaces in Reason
 
-**Fully quit Reason and restart it.** Reason only reads Remote maps at startup, so a
-restart is mandatory — this is the single most common reason setup appears not to work.
+**Fully quit Reason and restart it.** Reason only reads Remote maps at startup, so this is
+mandatory — it's the single most common reason setup appears not to work.
 
-Then:
+### 3a — The auto-follow surface
 
 1. **Preferences → Control Surfaces → Add Manually**
-2. **Manufacturer:** `Community`
+2. **Manufacturer:** `Automate Pros`
 3. **Model:** `Stream Deck+ Remote`
-4. **Input Port:** `loopMIDI Port 1`
-5. **Output Port:** `loopMIDI Port 2`
-6. Turn **off** Easy MIDI / "Use with Easy MIDI" for both ports, or Reason will handle
-   every message twice.
+4. **Input Port:** port 1 · **Output Port:** port 2
+5. Turn **off** Easy MIDI for both, or Reason handles every message twice
 
-If Manufacturer `Community` doesn't appear in the list, the codec didn't land in the right
-folder or Reason wasn't fully restarted. Check Step 2 and restart again.
+### 3b — The Master surface
+
+1. **Add Manually** again
+2. **Manufacturer:** `Automate Pros`
+3. **Model:** `Stream Deck+ Master`
+4. **Input Port:** port 3 · **Output Port:** port 4
+5. Turn **off** Easy MIDI for both
+6. **Lock this surface to the Master Section.** Select the Master Section in the rack, then
+   use the surface lock (device menu → Lock To This Device, or the lock control on the
+   surface in Preferences).
+
+Step 6 is the important one. Without the lock, the Master surface follows your selection
+like any other surface and stops being a dedicated mixer.
+
+If `Automate Pros` doesn't appear in the Add Manually list, the codec didn't land in the
+right folder or Reason wasn't fully restarted. Recheck Step 2 and restart again.
 
 ---
 
-## Step 4 — Install the plugin
+## Step 4 — Install the plugin (Windows)
 
-Install **Reason Remote Auto-Follow** from the Elgato Marketplace (or double-click the
-`.streamDeckPlugin` file).
+Install **Reason Remote Auto-Follow** from the Elgato Marketplace, or double-click the
+`.streamDeckPlugin` file.
 
-The plugin brings its own profiles and installs them automatically. You'll see these
-appear in your Stream Deck profile list:
+It brings its own profiles and installs them automatically:
 
-| Profile | What it covers |
+| Profile | Covers |
 | --- | --- |
 | `Reason - Core` | SubTractor, Friktion, Thor |
 | `Reason - RSN-P1` … `P4` | The remaining stock Reason devices |
 | `Reason - Fury` | Fury |
 | `Reason - Document` | Track navigation and document-level controls |
-| `Reason - Master` | Master Section mixing (second surface) |
+| `Reason - Master` | Master Section mixing (the locked surface) |
 
-They are set not to auto-switch on install, so nothing changes until Reason tells the
-plugin a device was selected.
+They're set not to auto-switch on install, so nothing changes until Reason tells the plugin
+a device was selected.
 
 ---
 
 ## Step 5 — Try it
 
-1. Make sure loopMIDI is running and Reason is open.
-2. In Reason, click on a **SubTractor** in the rack (open the device so it has focus).
-3. Your Stream Deck + should switch to the SubTractor layout within a moment.
-4. Turn a dial — the SubTractor's parameter should move in Reason.
-5. Click a **Thor** instead. The deck should follow.
+1. loopMIDI (or IAC) running, Reason open.
+2. Click a **SubTractor** in the rack so it has focus.
+3. The deck should switch to the SubTractor layout within a moment.
+4. Turn a dial — the parameter should move in Reason.
+5. Click a **Thor**. The deck should follow.
+6. With the instrument still focused, press **Mix** to reach the Master Section, and confirm
+   the faders drive the main mixer.
 
 ---
 
@@ -132,35 +187,45 @@ plugin a device was selected.
 
 | Action | What it does |
 | --- | --- |
-| **Reason Remote Status** | Shows the last device the plugin saw, and which profile it switched to. The best troubleshooting key. |
-| **Open Document** / **Return from Document** | Jump to the document/track-navigation profile and back |
-| **Open Master** / **Return from Master** | Jump to the Master Section profile and back |
+| **Reason Remote Status** | The last device the plugin saw and which profile it switched to. The best troubleshooting key. |
+| **Open Document** / **Return from Document** | Jump to track navigation and back |
+| **Open Master** / **Return from Master** | Jump to Master Section mixing and back |
 | **Current Instrument** | Shows the device you're browsing; press to open its page |
-| **Track Previous** / **Track Next** | Step through tracks while in document browse mode |
+| **Track Previous** / **Track Next** | Step through tracks while browsing |
 
 ---
 
 ## Troubleshooting
 
 **The deck never switches.**
-Drop a **Reason Remote Status** key onto any profile. It shows what the plugin last
-received. If it stays blank, no MIDI is arriving — check loopMIDI is running, the port is
-named `loopMIDI Port 2`, and that Reason's control surface output is set to that port.
+Drop a **Reason Remote Status** key onto any profile — it shows what the plugin last
+received. If it stays blank, no MIDI is arriving: check loopMIDI is running, the port is
+named `loopMIDI Port 2`, and Reason's auto-follow surface output is set to that port.
 
-**Manufacturer "Community" isn't in Reason's Add Manually list.**
-The codec isn't installed, or Reason wasn't fully quit. Re-run `install-remote.ps1` and
-restart Reason completely (not just close the song).
+**A key shows a yellow warning triangle.**
+That means the plugin process isn't running, not that the key is misconfigured. Reinstall
+the plugin and check for a `node.exe` process for `com.automate-pros.reason.remote`.
+
+**`Automate Pros` isn't in Reason's Add Manually list.**
+The codec isn't installed, or Reason wasn't fully quit. Re-run the installer and restart
+Reason completely — closing the song isn't enough.
+
+**Both `Community` and `Automate Pros` appear.**
+An old install is still present. Re-run the installer, which removes the `Community`
+folders, then restart Reason.
 
 **Everything happens twice.**
-Easy MIDI is still enabled on one of the loopMIDI ports. Turn it off for both in
-Reason's Preferences.
+Easy MIDI is still on for one of the ports. Turn it off for all four.
+
+**The Master surface follows my instrument selection.**
+It isn't locked. Redo Step 3b item 6.
 
 **Dials move the wrong parameter.**
-The deck is on a profile for a different device. Check the Status key — if it disagrees
-with what's selected in Reason, click the device in the rack again to re-send its identity.
+The deck is on a profile for a different device. Check the Status key — if it disagrees with
+Reason, click the device in the rack again to re-send its identity.
 
 **It worked, then stopped after a reboot.**
-loopMIDI didn't start. Enable **Autostart** in loopMIDI's options.
+loopMIDI didn't start. Enable **Autostart** in its options.
 
 **Where are the logs?**
 `%APPDATA%\Elgato\StreamDeck\Plugins\com.automate-pros.reason.remote.sdPlugin\logs\`
@@ -169,10 +234,11 @@ loopMIDI didn't start. Enable **Autostart** in loopMIDI's options.
 
 ## Uninstalling
 
-1. Remove the plugin from Stream Deck (right-click it in the store list → Uninstall).
-2. Delete the `Community` folders from the four Remote paths listed in Step 2.
-3. Remove the control surface in Reason's Preferences.
-4. Delete the loopMIDI ports if nothing else uses them.
+1. Remove the plugin from Stream Deck (right-click → Uninstall).
+2. Delete the `Automate Pros` folders from `Codecs/Lua Codecs/` and `Maps/` in both Remote
+   locations listed in Step 2.
+3. Remove both control surfaces in Reason's Preferences.
+4. Delete the virtual MIDI ports if nothing else uses them.
 
 ---
 
