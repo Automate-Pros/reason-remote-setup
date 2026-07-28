@@ -136,7 +136,7 @@ you prefer.
 mandatory — it's the single most common reason setup appears not to work.
 
 ### 3a — The auto-follow surface
-
+<img width="521" height="449" alt="image" src="https://github.com/user-attachments/assets/8bae85f0-85dc-4b97-849d-edceee6ee225" />
 1. **Preferences → Control Surfaces → Add Manually**
 2. **Manufacturer:** `Automate Pros`
 3. **Model:** `Stream Deck+ Remote`
@@ -144,7 +144,7 @@ mandatory — it's the single most common reason setup appears not to work.
 5. Turn **off** Easy MIDI for both, or Reason handles every message twice
 
 ### 3b — The Master surface
-
+<img width="525" height="444" alt="image" src="https://github.com/user-attachments/assets/2b3f4620-6928-48c3-9e13-b5df08141ea7" />
 1. **Add Manually** again
 2. **Manufacturer:** `Automate Pros`
 3. **Model:** `Stream Deck+ Master`
