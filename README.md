@@ -164,13 +164,13 @@ which defeats the point of having it.
 
 1. In Reason's menu bar: **Options → Remote and Keyboard Control → Surface Locking…**
 
-<!-- IMAGE SLOT: Options > Remote and Keyboard Control menu, Surface Locking highlighted -->
+<img width="526" height="288" alt="image" src="https://github.com/user-attachments/assets/5e23e522-3af7-4fa4-99fe-4e6654c8f18d" />
 
 2. **Surface:** choose `Automate Pros Stream Deck+ Master`
 3. **Lock to Device:** choose `Master Section (Master Section)`
 4. Close the dialog.
 
-<!-- IMAGE SLOT: Surface Locking dialog showing Stream Deck+ Master locked to Master Section -->
+<img width="425" height="379" alt="image" src="https://github.com/user-attachments/assets/7b9232f8-c296-4253-821d-ba1a748e68ab" />
 
 
 The dialog shows the surface's own setup notes once selected, which is a quick way to
