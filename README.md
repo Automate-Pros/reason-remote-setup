@@ -24,7 +24,8 @@ They do different jobs and need their own MIDI port pair each.
 | **Master** | `Stream Deck+ Master` | 3 / 4 | Master Section mixing. **Locked** to the Master Section, so it keeps working while an instrument is focused. |
 
 The Master surface is what lets you mix without losing your instrument page — that only
-works because it is locked, which is a manual step in Reason covered in Step 3.
+works because it is **surface locked** to the Master Section — a manual step in Reason that
+is easy to miss, covered in Step 3c.
 
 You can set up the auto-follow surface alone if you don't need the mixer, in which case you
 only need ports 1 and 2.
@@ -137,7 +138,7 @@ mandatory — it's the single most common reason setup appears not to work.
 
 ### 3a — The auto-follow surface
 
-<img width="521" height="449" alt="image" src="https://github.com/user-attachments/assets/8bae85f0-85dc-4b97-849d-edceee6ee225" />
+<img width="521" height="449" alt="Reason Add Manually dialog for Automate Pros Stream Deck+ Remote" src="https://github.com/user-attachments/assets/8bae85f0-85dc-4b97-849d-edceee6ee225" />
 
 1. **Preferences → Control Surfaces → Add Manually**
 2. **Manufacturer:** `Automate Pros`
@@ -147,19 +148,37 @@ mandatory — it's the single most common reason setup appears not to work.
 
 ### 3b — The Master surface
 
-<img width="525" height="444" alt="image" src="https://github.com/user-attachments/assets/2b3f4620-6928-48c3-9e13-b5df08141ea7" />
+<img width="525" height="444" alt="Reason Add Manually dialog for Automate Pros Stream Deck+ Master" src="https://github.com/user-attachments/assets/2b3f4620-6928-48c3-9e13-b5df08141ea7" />
 
 1. **Add Manually** again
 2. **Manufacturer:** `Automate Pros`
 3. **Model:** `Stream Deck+ Master`
 4. **Input Port:** port 3 · **Output Port:** port 4
 5. Turn **off** Easy MIDI for both
-6. **Lock this surface to the Master Section.** Select the Master Section in the rack, then
-   use the surface lock (device menu → Lock To This Device, or the lock control on the
-   surface in Preferences).
 
-Step 6 is the important one. Without the lock, the Master surface follows your selection
-like any other surface and stops being a dedicated mixer.
+### 3c — Lock the Master surface to the Master Section
+
+**Don't skip this.** Until you do it, the Master surface follows your selection like any
+other surface — so it stops being a dedicated mixer the moment you click an instrument,
+which defeats the point of having it.
+
+1. In Reason's menu bar: **Options → Remote and Keyboard Control → Surface Locking…**
+
+<!-- IMAGE SLOT: Options > Remote and Keyboard Control menu, Surface Locking highlighted -->
+
+2. **Surface:** choose `Automate Pros Stream Deck+ Master`
+3. **Lock to Device:** choose `Master Section (Master Section)`
+4. Close the dialog.
+
+<!-- IMAGE SLOT: Surface Locking dialog showing Stream Deck+ Master locked to Master Section -->
+
+
+The dialog shows the surface's own setup notes once selected, which is a quick way to
+confirm you picked the right one — it should mention Ports 3 and 4. Leave **Always Use
+Mapping** alone; it stays greyed out for this surface.
+
+Only the Master surface gets locked. Leave `Stream Deck+ Remote` unlocked — following your
+selection is exactly what it's for.
 
 If `Automate Pros` doesn't appear in the Add Manually list, the codec didn't land in the
 right folder or Reason wasn't fully restarted. Recheck Step 2 and restart again.
@@ -175,9 +194,8 @@ It brings its own profiles and installs them automatically:
 
 | Profile | Covers |
 | --- | --- |
-| `Reason - Core` | SubTractor, Friktion, Thor |
+| `Reason - Core` | SubTractor, Friktion, Thor, Fury |
 | `Reason - RSN-P1` … `P4` | The remaining stock Reason devices |
-| `Reason - Fury` | Fury |
 | `Reason - Document` | Track navigation and document-level controls |
 | `Reason - Master` | Master Section mixing (the locked surface) |
 
@@ -233,7 +251,13 @@ folders, then restart Reason.
 Easy MIDI is still on for one of the ports. Turn it off for all four.
 
 **The Master surface follows my instrument selection.**
-It isn't locked. Redo Step 3b item 6.
+It isn't locked. **Options → Remote and Keyboard Control → Surface Locking…**, pick
+`Automate Pros Stream Deck+ Master`, and set **Lock to Device** to
+`Master Section (Master Section)`. See Step 3c.
+
+**The surface or the Master Section isn't in the Surface Locking dropdowns.**
+Check you completed Step 3b — the surface has to exist in Preferences before it can be
+locked — and that a song is open when you open the dialog.
 
 **Dials move the wrong parameter.**
 The deck is on a profile for a different device. Check the Status key — if it disagrees with
