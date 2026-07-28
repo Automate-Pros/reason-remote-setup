@@ -40,7 +40,8 @@ only need ports 1 and 2.
 | Reason | Reason 12 or newer, or Reason Recon |
 | PowerShell 7 | Windows: [install pwsh](https://aka.ms/powershell) if you don't have it. macOS: `brew install --cask powershell` |
 | Virtual MIDI ports | Windows: [loopMIDI](https://www.tobias-erichsen.de/software/loopmidi.html). macOS: the built-in IAC Driver |
-| This download | `reason-remote-setup.zip` from the [Releases page](https://github.com/Automate-Pros/reason-remote-setup/releases/latest) |
+
+Step 2 fetches everything else for you — there is nothing to download by hand.
 
 > **Windows and macOS.** The codec and both surfaces install on either. The **Auto-Follow
 > Stream Deck plugin is Windows-only** — on macOS you get working Reason surfaces that you
@@ -84,25 +85,35 @@ Never use one port for both directions — it feeds back on itself.
 
 ## Step 2 — Install the codec and maps
 
-Unzip `reason-remote-setup.zip`, then from that folder:
-
-**Windows**
+Open **PowerShell 7** (`pwsh` — not Windows PowerShell) and run:
 
 ```powershell
-pwsh -NoProfile -ExecutionPolicy Bypass -File .\install-remote.ps1
+irm https://raw.githubusercontent.com/Automate-Pros/reason-remote-setup/main/install.ps1 | iex
 ```
 
-**macOS**
+That downloads the latest setup bundle and installs it. Same line on Windows and macOS.
+
+On macOS the system-wide location needs `sudo`, but you don't need it — without it the
+files go to your user location, which Reason reads perfectly well. To install for every
+user instead:
 
 ```bash
-pwsh ./install-remote.ps1
+sudo pwsh -c "irm https://raw.githubusercontent.com/Automate-Pros/reason-remote-setup/main/install.ps1 | iex"
 ```
 
-On macOS the system-wide location needs `sudo`. Without it the script installs to your user
-location only, which Reason reads perfectly well — so `sudo` is optional. Re-run with
-`sudo pwsh ./install-remote.ps1` if you want it available to every user.
+> That one-liner runs a script straight off the internet. If you'd rather read it first,
+> drop the `| iex` — `irm <url>` on its own just prints it. Or use the manual route below.
 
-The script copies into Reason's Remote folders:
+### Manual install
+
+If you prefer not to pipe a script, or you're installing somewhere without internet:
+
+1. Download **`reason-remote-setup.zip`** from the
+   [latest release](https://github.com/Automate-Pros/reason-remote-setup/releases/latest).
+2. Unzip it.
+3. From inside that folder, run `pwsh ./install-remote.ps1` (Windows: `pwsh -NoProfile -ExecutionPolicy Bypass -File .\install-remote.ps1`).
+
+Either route copies into Reason's Remote folders:
 
 | OS | Locations |
 | --- | --- |
