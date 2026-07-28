@@ -39,10 +39,24 @@ only need ports 1 and 2.
 | Stream Deck + | The profiles are built for the Stream Deck + (dials + touch strip) |
 | Stream Deck software | 6.9 or newer |
 | Reason | Reason 12 or newer, or Reason Recon |
+| **MIDI plugin by Trevliga Spel** | **Required — paid.** [Get it on Marketplace](https://marketplace.elgato.com/@trevliga-spel). See below. |
 | PowerShell 7 | Windows: [install pwsh](https://aka.ms/powershell) if you don't have it. macOS: `brew install --cask powershell` |
 | Virtual MIDI ports | Windows: [loopMIDI](https://www.tobias-erichsen.de/software/loopmidi.html). macOS: the built-in IAC Driver |
 
 Step 2 fetches everything else for you — there is nothing to download by hand.
+
+> ### The Trevliga Spel MIDI plugin is required
+>
+> Every **dial** and every **mixer key** in the bundled profiles is driven by the
+> [MIDI plugin from Trevliga Spel](https://marketplace.elgato.com/@trevliga-spel). This
+> plugin handles auto-follow — switching the deck to the right page as you select devices
+> in Reason — but it does not send the parameter MIDI itself.
+>
+> Without it installed, the deck still follows your selection and page navigation still
+> works, but **the dials will not control anything**.
+>
+> That plugin moved from free to paid in March 2026. If you already own it you were
+> grandfathered in and will not be charged again.
 
 > **Windows and macOS.** The codec and both surfaces install on either. The **Auto-Follow
 > Stream Deck plugin is Windows-only** — on macOS you get working Reason surfaces that you
@@ -164,13 +178,13 @@ which defeats the point of having it.
 
 1. In Reason's menu bar: **Options → Remote and Keyboard Control → Surface Locking…**
 
-<img width="526" height="288" alt="image" src="https://github.com/user-attachments/assets/5e23e522-3af7-4fa4-99fe-4e6654c8f18d" />
+<!-- IMAGE SLOT: Options > Remote and Keyboard Control menu, Surface Locking highlighted -->
 
 2. **Surface:** choose `Automate Pros Stream Deck+ Master`
 3. **Lock to Device:** choose `Master Section (Master Section)`
 4. Close the dialog.
 
-<img width="425" height="379" alt="image" src="https://github.com/user-attachments/assets/7b9232f8-c296-4253-821d-ba1a748e68ab" />
+<!-- IMAGE SLOT: Surface Locking dialog showing Stream Deck+ Master locked to Master Section -->
 
 
 The dialog shows the surface's own setup notes once selected, which is a quick way to
