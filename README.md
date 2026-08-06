@@ -4,12 +4,30 @@ This makes your Stream Deck + follow whatever device you select in Reason. Selec
 the deck shows Thor's controls. Select a SubTractor, it switches. No button presses, no
 manual profile switching.
 
+Get the Windows plugin here:
+[**Reason Remote Auto-Follow on the Elgato Marketplace**](https://marketplace.elgato.com/product/reason-remote-auto-follow-dcbcce97-71e4-46ac-9057-e3651804eb95).
+
 **The plugin on its own does nothing.** It listens for MIDI from a Remote codec that has to
 be installed into Reason, over virtual MIDI ports that have to be created first. Budget
 about 20 minutes for the one-time setup. After that it just works.
 
 > Not affiliated with, or endorsed by, Reason Studios AB or Elgato. Reason and all Reason
 > device names are trademarks of their respective owners.
+
+---
+
+## Quick start
+
+| # | Do this |
+| --- | --- |
+| 1 | Install **[MIDI by Trevliga Spel](https://marketplace.elgato.com/@trevliga-spel)** (required for dials) |
+| 2 | Install **[Reason Remote Auto-Follow](https://marketplace.elgato.com/product/reason-remote-auto-follow-dcbcce97-71e4-46ac-9057-e3651804eb95)** and accept the AutoInstall profile prompts |
+| 3 | Create four **loopMIDI** ports (or IAC buses on Mac) — see Step 2 |
+| 4 | Install the Reason codec/maps with the one-liner in Step 3, then **fully quit and restart Reason** |
+| 5 | Add both Automate Pros surfaces in Reason, **lock Master** to the Master Section (Step 4) |
+| 6 | Focus a SubTractor — the deck should switch; turn a dial; then try Thor and **Mix** |
+
+Details for each step are below.
 
 ---
 
@@ -25,7 +43,7 @@ They do different jobs and need their own MIDI port pair each.
 
 The Master surface is what lets you mix without losing your instrument page — that only
 works because it is **surface locked** to the Master Section — a manual step in Reason that
-is easy to miss, covered in Step 3c.
+is easy to miss, covered in Step 4c.
 
 You can set up the auto-follow surface alone if you don't need the mixer, in which case you
 only need ports 1 and 2.
@@ -43,17 +61,17 @@ only need ports 1 and 2.
 | PowerShell 7 | Windows: [install pwsh](https://aka.ms/powershell) if you don't have it. macOS: `brew install --cask powershell` |
 | Virtual MIDI ports | Windows: [loopMIDI](https://www.tobias-erichsen.de/software/loopmidi.html). macOS: the built-in IAC Driver |
 
-Step 2 fetches everything else for you — there is nothing to download by hand.
+Step 3 fetches the Reason codec and maps for you — there is nothing else to download by hand.
 
 > ### The Trevliga Spel MIDI plugin is required
 >
 > Every **dial** and every **mixer key** in the bundled profiles is driven by the
-> [MIDI plugin from Trevliga Spel](https://marketplace.elgato.com/@trevliga-spel). This
-> plugin handles auto-follow — switching the deck to the right page as you select devices
-> in Reason — but it does not send the parameter MIDI itself.
+> [MIDI plugin from Trevliga Spel](https://marketplace.elgato.com/@trevliga-spel).
+> Reason Remote Auto-Follow handles switching the deck to the right page as you select
+> devices in Reason — it does **not** send the parameter MIDI itself.
 >
-> Without it installed, the deck still follows your selection and page navigation still
-> works, but **the dials will not control anything**.
+> Without Trevliga installed, the deck can still follow your selection and page navigation
+> still works, but **the dials will not control anything**.
 >
 > That plugin moved from free to paid in March 2026. If you already own it you were
 > grandfathered in and will not be charged again.
@@ -64,7 +82,36 @@ Step 2 fetches everything else for you — there is nothing to download by hand.
 
 ---
 
-## Step 1 — Create the virtual MIDI ports
+## Step 1 — Install the Stream Deck pieces (Windows)
+
+### 1a — MIDI by Trevliga Spel
+
+Install **[MIDI](https://marketplace.elgato.com/@trevliga-spel)** from the Elgato Marketplace
+before or right after the Auto-Follow plugin. Without it, dials and mixer keys will not work.
+
+### 1b — Reason Remote Auto-Follow
+
+Install **[Reason Remote Auto-Follow](https://marketplace.elgato.com/product/reason-remote-auto-follow-dcbcce97-71e4-46ac-9057-e3651804eb95)**
+from the Elgato Marketplace (or double-click a `.streamDeckPlugin` file if you have one).
+
+When Stream Deck prompts, **accept AutoInstall** for the bundled profiles. They install
+automatically and stay idle until Reason tells the plugin a device was selected:
+
+| Profile | Covers |
+| --- | --- |
+| `Reason - Core (Auto-Follow)` | SubTractor, Friktion, Thor, Fury |
+| `RSN-Objekt,Octo,NN19,ID8,Parsec (Auto Follow)` | Objekt, Dr. Octo Rex, NN-19, ID8, Parsec |
+| `RSN-Kong,Redrum,Europa,Malstrom,NNXT (Auto Follow)` | Kong, Redrum, Europa, Malström, NN-XT |
+| `RSN-Mimic,Grain,Complex1,Polytone,Monotone (Auto Follow)` | Mimic, Grain, Complex-1, Polytone, Monotone |
+| `RSN-RadPiano,Algoritm (Auto Follow)` | Radical Piano, Algoritm |
+| `RSN-Humana,Klang,Pangea (Auto Follow)` | Humana, Klang, Pangea |
+| `RSN-UmpfClub,UmpfRetro (Auto Follow)` | Umpf Club, Umpf Retro |
+| `Reason - Document (Global)` | Track navigation and document-level controls |
+| `Reason - Master (Global)` | Master Section mixing (the locked surface) |
+
+---
+
+## Step 2 — Create the virtual MIDI ports
 
 Reason and the Stream Deck talk over virtual MIDI cables. You need **four** for both
 surfaces (or just the first two if you're skipping the mixer).
@@ -98,7 +145,7 @@ Never use one port for both directions — it feeds back on itself.
 
 ---
 
-## Step 2 — Install the codec and maps
+## Step 3 — Install the codec and maps
 
 Open **PowerShell 7** (`pwsh` — not Windows PowerShell) and run:
 
@@ -141,16 +188,16 @@ you prefer.
 
 > Upgrading from a version before 1.1? These surfaces used to ship under manufacturer
 > **Community**. The installer deletes those folders so Reason doesn't list both. You will
-> need to re-add the surfaces in Step 3 — Reason won't carry the old ones over.
+> need to re-add the surfaces in Step 4 — Reason won't carry the old ones over.
 
 ---
 
-## Step 3 — Add both surfaces in Reason
+## Step 4 — Add both surfaces in Reason
 
 **Fully quit Reason and restart it.** Reason only reads Remote maps at startup, so this is
 mandatory — it's the single most common reason setup appears not to work.
 
-### 3a — The auto-follow surface
+### 4a — The auto-follow surface
 
 <img width="521" height="449" alt="Reason Add Manually dialog for Automate Pros Stream Deck+ Remote" src="https://github.com/user-attachments/assets/8bae85f0-85dc-4b97-849d-edceee6ee225" />
 
@@ -160,7 +207,7 @@ mandatory — it's the single most common reason setup appears not to work.
 4. **Input Port:** port 1 · **Output Port:** port 2
 5. Turn **off** Easy MIDI for both, or Reason handles every message twice
 
-### 3b — The Master surface
+### 4b — The Master surface
 
 <img width="525" height="444" alt="Reason Add Manually dialog for Automate Pros Stream Deck+ Master" src="https://github.com/user-attachments/assets/2b3f4620-6928-48c3-9e13-b5df08141ea7" />
 
@@ -170,7 +217,7 @@ mandatory — it's the single most common reason setup appears not to work.
 4. **Input Port:** port 3 · **Output Port:** port 4
 5. Turn **off** Easy MIDI for both
 
-### 3c — Lock the Master surface to the Master Section
+### 4c — Lock the Master surface to the Master Section
 
 **Don't skip this.** Until you do it, the Master surface follows your selection like any
 other surface — so it stops being a dedicated mixer the moment you click an instrument,
@@ -186,7 +233,6 @@ which defeats the point of having it.
 
 <!-- IMAGE SLOT: Surface Locking dialog showing Stream Deck+ Master locked to Master Section -->
 
-
 The dialog shows the surface's own setup notes once selected, which is a quick way to
 confirm you picked the right one — it should mention Ports 3 and 4. Leave **Always Use
 Mapping** alone; it stays greyed out for this surface.
@@ -195,38 +241,22 @@ Only the Master surface gets locked. Leave `Stream Deck+ Remote` unlocked — fo
 selection is exactly what it's for.
 
 If `Automate Pros` doesn't appear in the Add Manually list, the codec didn't land in the
-right folder or Reason wasn't fully restarted. Recheck Step 2 and restart again.
-
----
-
-## Step 4 — Install the plugin (Windows)
-
-Install **Reason Remote Auto-Follow** from the Elgato Marketplace, or double-click the
-`.streamDeckPlugin` file.
-
-It brings its own profiles and installs them automatically:
-
-| Profile | Covers |
-| --- | --- |
-| `Reason - Core` | SubTractor, Friktion, Thor, Fury |
-| `Reason - RSN-P1` … `P4` | The remaining stock Reason devices |
-| `Reason - Document` | Track navigation and document-level controls |
-| `Reason - Master` | Master Section mixing (the locked surface) |
-
-They're set not to auto-switch on install, so nothing changes until Reason tells the plugin
-a device was selected.
+right folder or Reason wasn't fully restarted. Recheck Step 3 and restart again.
 
 ---
 
 ## Step 5 — Try it
 
-1. loopMIDI (or IAC) running, Reason open.
+1. loopMIDI (or IAC) running, Reason open, Stream Deck software running.
 2. Click a **SubTractor** in the rack so it has focus.
 3. The deck should switch to the SubTractor layout within a moment.
 4. Turn a dial — the parameter should move in Reason.
 5. Click a **Thor**. The deck should follow.
 6. With the instrument still focused, press **Mix** to reach the Master Section, and confirm
    the faders drive the main mixer.
+
+If nothing switches, drop a **Reason Remote Status** action on any profile first — see
+Troubleshooting.
 
 ---
 
@@ -244,10 +274,13 @@ a device was selected.
 
 ## Troubleshooting
 
+**Start with the Status key.**
+Drop a **Reason Remote Status** action onto any profile. It shows what the plugin last
+received and which profile it switched to — faster than guessing which step failed.
+
 **The deck never switches.**
-Drop a **Reason Remote Status** key onto any profile — it shows what the plugin last
-received. If it stays blank, no MIDI is arriving: check loopMIDI is running, the port is
-named `loopMIDI Port 2`, and Reason's auto-follow surface output is set to that port.
+If Status stays blank, no MIDI is arriving: check loopMIDI is running, the port is named
+`loopMIDI Port 2`, and Reason's auto-follow surface **output** is set to that port.
 
 **A key shows a yellow warning triangle.**
 That means the plugin process isn't running, not that the key is misconfigured. Reinstall
@@ -267,15 +300,18 @@ Easy MIDI is still on for one of the ports. Turn it off for all four.
 **The Master surface follows my instrument selection.**
 It isn't locked. **Options → Remote and Keyboard Control → Surface Locking…**, pick
 `Automate Pros Stream Deck+ Master`, and set **Lock to Device** to
-`Master Section (Master Section)`. See Step 3c.
+`Master Section (Master Section)`. See Step 4c.
 
 **The surface or the Master Section isn't in the Surface Locking dropdowns.**
-Check you completed Step 3b — the surface has to exist in Preferences before it can be
+Check you completed Step 4b — the surface has to exist in Preferences before it can be
 locked — and that a song is open when you open the dialog.
 
 **Dials move the wrong parameter.**
 The deck is on a profile for a different device. Check the Status key — if it disagrees with
 Reason, click the device in the rack again to re-send its identity.
+
+**Dials do nothing, but the page still switches.**
+The Trevliga Spel MIDI plugin is missing or not installed. See [What you need](#what-you-need).
 
 **It worked, then stopped after a reboot.**
 loopMIDI didn't start. Enable **Autostart** in its options.
@@ -289,7 +325,7 @@ loopMIDI didn't start. Enable **Autostart** in its options.
 
 1. Remove the plugin from Stream Deck (right-click → Uninstall).
 2. Delete the `Automate Pros` folders from `Codecs/Lua Codecs/` and `Maps/` in both Remote
-   locations listed in Step 2.
+   locations listed in Step 3.
 3. Remove both control surfaces in Reason's Preferences.
 4. Delete the virtual MIDI ports if nothing else uses them.
 
@@ -297,5 +333,10 @@ loopMIDI didn't start. Enable **Autostart** in its options.
 
 ## Support
 
-Issues and questions: <https://github.com/Automate-Pros/reason-remote-setup/issues>
-More: <https://automate-pros.com>
+Please use GitHub — Marketplace comments are easy to miss.
+
+| | |
+| --- | --- |
+| **Bugs, crashes, broken installs** | [GitHub Issues](https://github.com/Automate-Pros/reason-remote-setup/issues) |
+| **Questions, how-to, instrument requests** | [GitHub Discussions](https://github.com/Automate-Pros/reason-remote-setup/discussions) |
+| **Website** | [automate-pros.com](https://automate-pros.com) |
