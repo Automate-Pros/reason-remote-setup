@@ -92,7 +92,12 @@ before or right after the Auto-Follow plugin. Without it, dials and mixer keys w
 ### 1b — Reason Remote Auto-Follow
 
 Install **[Reason Remote Auto-Follow](https://marketplace.elgato.com/product/reason-remote-auto-follow-dcbcce97-71e4-46ac-9057-e3651804eb95)**
-from the Elgato Marketplace (or double-click a `.streamDeckPlugin` file if you have one).
+from the Elgato Marketplace.
+
+> **Sent a `.streamDeckPlugin` file directly?** Double-click it instead, accept the
+> AutoInstall prompts, and carry on from Step 2 — the rest of this guide is the same. Note
+> that Stream Deck does not auto-update a plugin installed this way: new versions arrive as
+> a new file, not as an update prompt.
 
 When Stream Deck prompts, **accept AutoInstall** for the bundled profiles. They install
 automatically and stay idle until Reason tells the plugin a device was selected:
