@@ -1,11 +1,13 @@
-# Reason Remote Auto-Follow — Setup Guide
+# Reason Remote — Setup Guide
 
 This makes your Stream Deck + follow whatever device you select in Reason. Select a Thor,
 the deck shows Thor's controls. Select a SubTractor, it switches. No button presses, no
 manual profile switching.
 
 Get the Windows plugin here:
-[**Reason Remote Auto-Follow on the Elgato Marketplace**](https://marketplace.elgato.com/product/reason-remote-auto-follow-dcbcce97-71e4-46ac-9057-e3651804eb95).
+[**Reason Remote on the Elgato Marketplace**](https://marketplace.elgato.com/product/reason-remote-auto-follow-dcbcce97-71e4-46ac-9057-e3651804eb95).
+There is also a free **[Reason Remote Lite](https://www.automate-pros.com)** — see
+[The two versions](#the-two-versions).
 
 **The plugin on its own does nothing.** It listens for MIDI from a Remote codec that has to
 be installed into Reason, over virtual MIDI ports that have to be created first. Budget
@@ -16,16 +18,37 @@ about 20 minutes for the one-time setup. After that it just works.
 
 ---
 
+## The two versions
+
+Two Stream Deck plugins, same setup. The only difference is how many Reason devices the deck
+follows — every step in this guide applies to both, unchanged.
+
+| | **Reason Remote** | **Reason Remote Lite** |
+| --- | --- | --- |
+| Price | Paid | Free |
+| Instruments | Every device listed in Step 1b | SubTractor, ReDrum, Europa, Radical Keys |
+| Document page (track navigation) | Yes | Yes, identical |
+| Master Section page (mixing) | Yes | Yes, identical |
+| Reason codec, MIDI ports, surfaces | Shared | Shared |
+
+Select a device Lite doesn't cover and the deck shows a page naming that device and what the
+full version adds — that is not a fault.
+
+Because the codec, the MIDI ports and the Reason surfaces are shared, buying the full version
+later means installing one Stream Deck plugin and redoing nothing else — just **uninstall Lite
+first** (Step 1a).
+
+---
+
 ## Quick start
 
 | # | Do this |
 | --- | --- |
-| 1 | Install **[MIDI by Trevliga Spel](https://marketplace.elgato.com/@trevliga-spel)** (required for dials) |
-| 2 | Install **[Reason Remote Auto-Follow](https://marketplace.elgato.com/product/reason-remote-auto-follow-dcbcce97-71e4-46ac-9057-e3651804eb95)** and accept the AutoInstall profile prompts |
-| 3 | Create four **loopMIDI** ports (or IAC buses on Mac) — see Step 2 |
-| 4 | Install the Reason codec/maps with the one-liner in Step 3, then **fully quit and restart Reason** |
-| 5 | Add both Automate Pros surfaces in Reason, **lock Master** to the Master Section (Step 4) |
-| 6 | Focus a SubTractor — the deck should switch; turn a dial; then try Thor and **Mix** |
+| 1 | Install **[Reason Remote](https://marketplace.elgato.com/product/reason-remote-auto-follow-dcbcce97-71e4-46ac-9057-e3651804eb95)** (or **Reason Remote Lite**) and accept the AutoInstall profile prompts |
+| 2 | Create four **loopMIDI** ports (or IAC buses on Mac) — see Step 2 |
+| 3 | Install the Reason codec/maps with the one-liner in Step 3, then **fully quit and restart Reason** |
+| 4 | Add both Automate Pros surfaces in Reason, **lock Master** to the Master Section (Step 4) |
+| 5 | Focus a SubTractor — the deck should switch; turn a dial; then try Thor and **Mix** |
 
 Details for each step are below.
 
@@ -57,24 +80,15 @@ only need ports 1 and 2.
 | Stream Deck + | The profiles are built for the Stream Deck + (dials + touch strip) |
 | Stream Deck software | 6.9 or newer |
 | Reason | Reason 12 or newer, or Reason Recon |
-| **MIDI plugin by Trevliga Spel** | **Required — paid.** [Get it on Marketplace](https://marketplace.elgato.com/@trevliga-spel). See below. |
 | PowerShell 7 | Windows: [install pwsh](https://aka.ms/powershell) if you don't have it. macOS: `brew install --cask powershell` |
 | Virtual MIDI ports | Windows: [loopMIDI](https://www.tobias-erichsen.de/software/loopmidi.html). macOS: the built-in IAC Driver |
 
 Step 3 fetches the Reason codec and maps for you — there is nothing else to download by hand.
 
-> ### The Trevliga Spel MIDI plugin is required
->
-> Every **dial** and every **mixer key** in the bundled profiles is driven by the
-> [MIDI plugin from Trevliga Spel](https://marketplace.elgato.com/@trevliga-spel).
-> Reason Remote Auto-Follow handles switching the deck to the right page as you select
-> devices in Reason — it does **not** send the parameter MIDI itself.
->
-> Without Trevliga installed, the deck can still follow your selection and page navigation
-> still works, but **the dials will not control anything**.
->
-> That plugin moved from free to paid in March 2026. If you already own it you were
-> grandfathered in and will not be charged again.
+**No other Stream Deck plugin is needed.** The dials, the touch strip and the mixer keys are
+all Reason Remote's own actions, in both versions. Earlier releases required a separate paid
+MIDI plugin for the dials; that dependency is gone. If you installed one for this, you can
+leave it or remove it — Reason Remote does not use it either way.
 
 > **Windows and macOS.** The codec and both surfaces install on either. The **Auto-Follow
 > Stream Deck plugin is Windows-only** — on macOS you get working Reason surfaces that you
@@ -82,25 +96,30 @@ Step 3 fetches the Reason codec and maps for you — there is nothing else to do
 
 ---
 
-## Step 1 — Install the Stream Deck pieces (Windows)
+## Step 1 — Install the Stream Deck plugin (Windows)
 
-### 1a — MIDI by Trevliga Spel
+### 1a — Reason Remote, or Reason Remote Lite
 
-Install **[MIDI](https://marketplace.elgato.com/@trevliga-spel)** from the Elgato Marketplace
-before or right after the Auto-Follow plugin. Without it, dials and mixer keys will not work.
-
-### 1b — Reason Remote Auto-Follow
-
-Install **[Reason Remote Auto-Follow](https://marketplace.elgato.com/product/reason-remote-auto-follow-dcbcce97-71e4-46ac-9057-e3651804eb95)**
-from the Elgato Marketplace.
+Install **[Reason Remote](https://marketplace.elgato.com/product/reason-remote-auto-follow-dcbcce97-71e4-46ac-9057-e3651804eb95)**
+from the Elgato Marketplace — or **[Reason Remote Lite](https://www.automate-pros.com)** if you want the free version
+first. Everything from here on is identical for both.
 
 > **Sent a `.streamDeckPlugin` file directly?** Double-click it instead, accept the
 > AutoInstall prompts, and carry on from Step 2 — the rest of this guide is the same. Note
 > that Stream Deck does not auto-update a plugin installed this way: new versions arrive as
 > a new file, not as an update prompt.
 
+> **Do not run Lite and the full version at the same time.** Both listen on the same
+> feedback MIDI port and both switch profiles, so they fight over the deck and it flickers
+> between them. Uninstall one before installing the other. Nothing else changes — the codec,
+> the MIDI ports and the Reason surfaces are shared, so you keep your existing setup.
+
+### 1b — The bundled profiles
+
 When Stream Deck prompts, **accept AutoInstall** for the bundled profiles. They install
-automatically and stay idle until Reason tells the plugin a device was selected:
+automatically and stay idle until Reason tells the plugin a device was selected.
+
+**Reason Remote** installs nine:
 
 | Profile | Covers |
 | --- | --- |
@@ -108,11 +127,19 @@ automatically and stay idle until Reason tells the plugin a device was selected:
 | `RSN-Objekt,Octo,NN19,ID8,Parsec (Auto Follow)` | Objekt, Dr. Octo Rex, NN-19, ID8, Parsec |
 | `RSN-Kong,Redrum,Europa,Malstrom,NNXT (Auto Follow)` | Kong, Redrum, Europa, Malström, NN-XT |
 | `RSN-Mimic,Grain,Complex1,Polytone,Monotone (Auto Follow)` | Mimic, Grain, Complex-1, Polytone, Monotone |
-| `RSN-RadPiano,Algoritm (Auto Follow)` | Radical Piano, Algoritm |
+| `RSN-RadPiano,RadKeys,Algoritm (Auto Follow)` | Radical Piano, Radical Keys, Algoritm |
 | `RSN-Humana,Klang,Pangea (Auto Follow)` | Humana, Klang, Pangea |
 | `RSN-UmpfClub,UmpfRetro (Auto Follow)` | Umpf Club, Umpf Retro |
 | `Reason - Document (Global)` | Track navigation and document-level controls |
 | `Reason - Master (Global)` | Master Section mixing (the locked surface) |
+
+**Reason Remote Lite** installs three instead:
+
+| Profile | Covers |
+| --- | --- |
+| `Reason Lite (Auto-Follow)` | SubTractor, ReDrum, Europa, Radical Keys, plus a page naming whatever else you select |
+| `Reason Lite - Document (Global)` | Track navigation and document-level controls |
+| `Reason Lite - Master (Global)` | Master Section mixing (the locked surface) |
 
 ---
 
@@ -289,7 +316,7 @@ If Status stays blank, no MIDI is arriving: check loopMIDI is running, the port 
 
 **A key shows a yellow warning triangle.**
 That means the plugin process isn't running, not that the key is misconfigured. Reinstall
-the plugin and check for a `node.exe` process for `com.automate-pros.reason.remote`.
+the plugin and check for a `node.exe` process for `com.automate-pros.reason-remote`.
 
 **`Automate Pros` isn't in Reason's Add Manually list.**
 The codec isn't installed, or Reason wasn't fully quit. Re-run the installer and restart
@@ -316,23 +343,29 @@ The deck is on a profile for a different device. Check the Status key — if it 
 Reason, click the device in the rack again to re-send its identity.
 
 **Dials do nothing, but the page still switches.**
-The Trevliga Spel MIDI plugin is missing or not installed. See [What you need](#what-you-need).
+Profile switching arrives on Port 2 (Reason to deck); dials go out on Port 1 (deck to Reason),
+so this means Port 1 isn't getting through. Check the auto-follow surface's **Input Port** in
+Reason is `loopMIDI Port 1`, that the port exists in loopMIDI, and that Easy MIDI is off.
 
 **It worked, then stopped after a reboot.**
 loopMIDI didn't start. Enable **Autostart** in its options.
 
 **Where are the logs?**
-`%APPDATA%\Elgato\StreamDeck\Plugins\com.automate-pros.reason.remote.sdPlugin\logs\`
+`%APPDATA%\Elgato\StreamDeck\Plugins\com.automate-pros.reason-remote.sdPlugin\logs\`
 
 ---
 
 ## Uninstalling
 
-1. Remove the plugin from Stream Deck (right-click → Uninstall).
+1. Remove the plugin from Stream Deck (right-click → Uninstall). Its profiles go with it.
 2. Delete the `Automate Pros` folders from `Codecs/Lua Codecs/` and `Maps/` in both Remote
    locations listed in Step 3.
 3. Remove both control surfaces in Reason's Preferences.
 4. Delete the virtual MIDI ports if nothing else uses them.
+
+**Moving from Lite to the full version?** Only step 1 applies — uninstall the Lite plugin,
+then install the full one. Leave the codec, maps, MIDI ports and Reason surfaces exactly as
+they are; both versions use the same ones.
 
 ---
 
