@@ -5,8 +5,8 @@ the deck shows Thor's controls. Select a SubTractor, it switches. No button pres
 manual profile switching.
 
 Get the Windows plugin here:
-[**Reason Remote on the Elgato Marketplace**](https://marketplace.elgato.com/product/reason-remote-auto-follow-dcbcce97-71e4-46ac-9057-e3651804eb95).
-There is also a free **[Reason Remote Lite](https://www.automate-pros.com)** — see
+[**Reason Remote on the Elgato Marketplace**](https://marketplace.elgato.com/product/reason-remote-e601aff3-8dcc-49c8-a978-e3b86b73bb10).
+There is also a free **[Reason Remote Lite](https://marketplace.elgato.com/@automate_pros)** — see
 [The two versions](#the-two-versions).
 
 **The plugin on its own does nothing.** It listens for MIDI from a Remote codec that has to
@@ -44,7 +44,7 @@ first** (Step 1a).
 
 | # | Do this |
 | --- | --- |
-| 1 | Install **[Reason Remote](https://marketplace.elgato.com/product/reason-remote-auto-follow-dcbcce97-71e4-46ac-9057-e3651804eb95)** (or **Reason Remote Lite**) and accept the AutoInstall profile prompts |
+| 1 | Install **[Reason Remote](https://marketplace.elgato.com/product/reason-remote-e601aff3-8dcc-49c8-a978-e3b86b73bb10)** (or **Reason Remote Lite**) and accept the AutoInstall profile prompts |
 | 2 | Create four **loopMIDI** ports (or IAC buses on Mac) — see Step 2 |
 | 3 | Install the Reason codec/maps with the one-liner in Step 3, then **fully quit and restart Reason** |
 | 4 | Add both Automate Pros surfaces in Reason, **lock Master** to the Master Section (Step 4) |
@@ -100,9 +100,9 @@ leave it or remove it — Reason Remote does not use it either way.
 
 ### 1a — Reason Remote, or Reason Remote Lite
 
-Install **[Reason Remote](https://marketplace.elgato.com/product/reason-remote-auto-follow-dcbcce97-71e4-46ac-9057-e3651804eb95)**
-from the Elgato Marketplace — or **[Reason Remote Lite](https://www.automate-pros.com)** if you want the free version
-first. Everything from here on is identical for both.
+Install **[Reason Remote](https://marketplace.elgato.com/product/reason-remote-e601aff3-8dcc-49c8-a978-e3b86b73bb10)**
+from the Elgato Marketplace — or **[Reason Remote Lite](https://marketplace.elgato.com/@automate_pros)**
+if you want the free version first. Everything from here on is identical for both.
 
 > **Sent a `.streamDeckPlugin` file directly?** Double-click it instead, accept the
 > AutoInstall prompts, and carry on from Step 2 — the rest of this guide is the same. Note
@@ -224,6 +224,12 @@ you prefer.
 
 ---
 
+> **Upgrading from a version before 2026-08-24?** The Remote surface definition changed so the
+> deck can send notes. **Delete and re-add** the Stream Deck+ Remote surface in Reason
+> Preferences after installing — re-adding is not optional, and the old registration will not
+> pick up the change. Leave **Master Keyboard** ticked for it if you want the piano to play the
+> selected track.
+
 ## Step 4 — Add both surfaces in Reason
 
 **Fully quit Reason and restart it.** Reason only reads Remote maps at startup, so this is
@@ -286,6 +292,12 @@ right folder or Reason wasn't fully restarted. Recheck Step 3 and restart again.
 5. Click a **Thor**. The deck should follow.
 6. With the instrument still focused, press **Mix** to reach the Master Section, and confirm
    the faders drive the main mixer.
+7. **Press and hold anywhere on the touch strip.** The deck jumps to the Document page —
+   transport, undo, loop, click. Hold again to go back to the instrument you were on.
+8. From Document, press **Piano**. Hold a key and it plays the selected track for as long as
+   you hold it; tap the touch strip for a chromatic octave. Turn dial 1 to transpose, and press
+   the bottom-right key to switch the seven keys between notes and chords. Hold the strip to
+   go back to the instrument.
 
 If nothing switches, drop a **Reason Remote Status** action on any profile first — see
 Troubleshooting.
