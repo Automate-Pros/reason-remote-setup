@@ -6,8 +6,8 @@ manual profile switching.
 
 Get the Windows plugin here:
 [**Reason Remote on the Elgato Marketplace**](https://marketplace.elgato.com/product/reason-remote-e601aff3-8dcc-49c8-a978-e3b86b73bb10).
-There is also a free **[Reason Remote Lite](https://marketplace.elgato.com/@automate_pros)** — see
-[The two versions](#the-two-versions).
+There is also a free **[Reason Remote Lite](https://marketplace.elgato.com/product/reason-remote-lite-14ff1e75-a9a5-49cf-a7fd-1f77a9946b22)** —
+see [The two versions](#the-two-versions).
 
 **The plugin on its own does nothing.** It listens for MIDI from a Remote codec that has to
 be installed into Reason, over virtual MIDI ports that have to be created first. Budget
@@ -101,7 +101,7 @@ leave it or remove it — Reason Remote does not use it either way.
 ### 1a — Reason Remote, or Reason Remote Lite
 
 Install **[Reason Remote](https://marketplace.elgato.com/product/reason-remote-e601aff3-8dcc-49c8-a978-e3b86b73bb10)**
-from the Elgato Marketplace — or **[Reason Remote Lite](https://marketplace.elgato.com/@automate_pros)**
+from the Elgato Marketplace — or **[Reason Remote Lite](https://marketplace.elgato.com/product/reason-remote-lite-14ff1e75-a9a5-49cf-a7fd-1f77a9946b22)**
 if you want the free version first. Everything from here on is identical for both.
 
 > **Sent a `.streamDeckPlugin` file directly?** Double-click it instead, accept the
