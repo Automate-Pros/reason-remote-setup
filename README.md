@@ -302,6 +302,11 @@ Mapping** alone; it stays greyed out for this surface.
 Only the Master surface gets locked. Leave `Stream Deck+ Remote` unlocked — following your
 selection is exactly what it's for.
 
+**The lock is saved in the song, not in Reason's preferences** — which is why the installer
+can't set it, and why a new song comes up unlocked. To stop redoing it: set the lock in an
+empty song, save that song somewhere permanent, then **Preferences → General → Default
+Song → Custom** and point it at that file. Every new song starts locked from then on.
+
 If `Automate Pros` doesn't appear in the Add Manually list, the codec didn't land in the
 right folder or Reason wasn't fully restarted. Recheck Step 2 and restart again.
 
