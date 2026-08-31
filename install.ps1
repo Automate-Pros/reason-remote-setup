@@ -45,6 +45,9 @@ try {
   $zipPath = Join-Path $workDir 'reason-remote-setup.zip'
 
   Write-Host 'Reason Remote — Automate Pros' -ForegroundColor Cyan
+  Write-Host 'Besides the Reason files, the installer can set up loopMIDI (downloaded from'
+  Write-Host 'tobias-erichsen.de with your consent), create the four MIDI ports and register'
+  Write-Host 'the control surfaces in Reason for you.'
   Write-Host "Downloading the latest setup bundle..."
   Invoke-WebRequest -Uri $AssetUrl -OutFile $zipPath
 
