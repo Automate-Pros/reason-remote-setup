@@ -28,13 +28,14 @@ follows — every step in this guide applies to both, unchanged.
 | | **Reason Remote** | **Reason Remote Lite** |
 | --- | --- | --- |
 | Price | Paid | Free |
-| Instruments | Every device listed in Step 1b | SubTractor, ReDrum, Europa, Radical Keys |
+| Instruments | Every device listed in Step 1b | Europa, Kong, ID8, Monotone, SubTractor, ReDrum, Radical Keys |
 | Document page (track navigation) | Yes | Yes, identical |
 | Master Section page (mixing) | Yes | Yes, identical |
 | Reason codec, MIDI ports, surfaces | Shared | Shared |
 
-Select a device Lite doesn't cover and the deck shows a page naming that device and what the
-full version adds — that is not a fault.
+Lite covers all four instruments in **Reason Free** (Europa, Kong, ID8, Monotone) plus three
+from the paid rack. Select a device it doesn't cover and the deck shows a page naming that
+device and what the full version adds — that is not a fault.
 
 Because the codec, the MIDI ports and the Reason surfaces are shared, buying the full version
 later means installing one Stream Deck plugin and redoing nothing else — just **uninstall Lite
@@ -139,7 +140,7 @@ automatically and stay idle until Reason tells the plugin a device was selected.
 
 | Profile | Covers |
 | --- | --- |
-| `Reason Lite (Auto-Follow)` | SubTractor, ReDrum, Europa, Radical Keys, plus a page naming whatever else you select |
+| `Reason Lite (Auto-Follow)` | Europa, Kong, ID8, Monotone, SubTractor, ReDrum, Radical Keys, plus a page naming whatever else you select |
 | `Reason Lite - Document (Global)` | Track navigation and document-level controls |
 | `Reason Lite - Master (Global)` | Master Section mixing (the locked surface) |
 
