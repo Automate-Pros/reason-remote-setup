@@ -261,8 +261,8 @@ main() {
 Next steps:
   1. Create four virtual MIDI buses (once):
      open -a "Audio MIDI Setup"   then Window -> Show MIDI Studio -> double-click IAC Driver,
-     tick "Device is online", and add buses until there are four: Bus 1, Bus 2, Bus 3, Bus 4.
-     Keep the default names - the plugin looks for "IAC Driver Bus 1" to "IAC Driver Bus 4".
+     tick "Device is online", add buses until there are four: Bus 1, Bus 2, Bus 3, Bus 4,
+     then click Apply. Keep the default names - the plugin looks for "IAC Driver Bus 1" to "IAC Driver Bus 4".
   2. Fully quit and restart Reason. Maps are only read at startup.
   3. Preferences -> Control Surfaces -> Add Manually, twice:
 
