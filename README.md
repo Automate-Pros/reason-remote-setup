@@ -227,8 +227,36 @@ It downloads the same setup bundle and copies the codec and maps into
 (Step 4) with the port names filled in. It doesn't create the IAC buses or register the
 surfaces in Reason. Those stay manual on a Mac.
 
+What it checks before copying anything:
+
+- The bundle is one pinned release (named at the top of `install.sh`), and its SHA-256 must
+  match the one written in the script. If it doesn't, nothing is installed.
+- Whether Reason and the Stream Deck app are in `/Applications`, and whether Reason is
+  running. It tells you if not, but still copies the files.
+
+`sudo` is only for the system-wide folder, which every user on the Mac shares and only an
+admin can write to. Nothing else in the script needs it. Under `sudo`, your per-user copy
+stays owned by you. Running it again is safe: it overwrites the same files.
+
 To read the script before running it, open
 [`install.sh`](install.sh), or run `curl -fsSL <url>` without `| bash`.
+
+**Uninstalling on a Mac.** Remove the plugin in Stream Deck (Preferences → Plugins, right-click
+→ Uninstall), remove both surfaces in Reason's Preferences → Control Surfaces, then delete the
+files:
+
+```bash
+rm -rf ~/"Library/Application Support/Propellerhead Software/Remote/Codecs/Lua Codecs/Automate Pros" \
+       ~/"Library/Application Support/Propellerhead Software/Remote/Maps/Automate Pros"
+# Only if you installed with sudo:
+sudo rm -rf "/Library/Application Support/Propellerhead Software/Remote/Codecs/Lua Codecs/Automate Pros" \
+            "/Library/Application Support/Propellerhead Software/Remote/Maps/Automate Pros"
+```
+
+Remove the IAC buses in Audio MIDI Setup only if nothing else uses them.
+
+**Logs on a Mac:**
+`~/Library/Application Support/com.elgato.StreamDeck/Plugins/com.automate-pros.reason-remote.sdPlugin/logs/`
 
 ---
 
