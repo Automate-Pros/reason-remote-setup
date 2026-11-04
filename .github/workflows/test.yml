@@ -1,0 +1,60 @@
+name: Test install.sh
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  unit:
+    name: Unit tests (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: bash in use
+        run: bash --version | head -1
+      - name: Tests
+        run: node --test
+      - name: Tests as root (the sudo ownership cases)
+        run: sudo env "PATH=$PATH" node --test
+
+  macos-real:
+    # The installer as a Mac user runs it: the pinned download, the real Remote folders, macOS's
+    # bash 3.2, shasum and dscl. No Reason or Stream Deck on the runner, so it warns about both.
+    name: Real install on macOS
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Without sudo (user folder only)
+        run: |
+          set -o pipefail
+          cat install.sh | bash | tee out1.txt
+          grep -q 'SHA-256 verified' out1.txt
+          grep -q 'Reason was not found' out1.txt
+          grep -q 'Skipped /Library/Application Support/Propellerhead Software/Remote' out1.txt
+          ls ~/"Library/Application Support/Propellerhead Software/Remote/Codecs/Lua Codecs/Automate Pros/StreamDeckPlusRemote.luacodec"
+      - name: With sudo (both folders; the user copy stays the user's)
+        run: |
+          set -o pipefail
+          rm -rf ~/"Library/Application Support/Propellerhead Software"
+          cat install.sh | sudo bash | tee out2.txt
+          grep -q 'Installed to /Library/Application Support/Propellerhead Software/Remote' out2.txt
+          for d in "Propellerhead Software" "Propellerhead Software/Remote" "Propellerhead Software/Remote/Maps/Automate Pros"; do
+            owner=$(stat -f %Su ~/"Library/Application Support/$d")
+            echo "$d: $owner"
+            [ "$owner" = "$(id -un)" ]
+          done
+          [ "$(stat -f %Su "/Library/Application Support/Propellerhead Software/Remote/Maps/Automate Pros")" = root ]
+      - name: Again without sudo (re-run is safe)
+        run: cat install.sh | bash
