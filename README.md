@@ -206,6 +206,30 @@ you prefer.
 > **Community**. The installer deletes those folders so Reason doesn't list both. You will
 > need to re-add the surfaces in Step 4 — Reason won't carry the old ones over.
 
+## macOS without PowerShell (beta, untested on hardware)
+
+> **Beta, untested on hardware.** This installer has not yet been run on a Mac with
+> Reason and a Stream Deck +. If anything goes wrong, use the PowerShell route above or the
+> manual install. Please report problems in
+> [Discussions](https://github.com/Automate-Pros/reason-remote-setup/discussions).
+
+If you don't have PowerShell 7 on your Mac, this does the same file copy from Terminal.
+**Close Reason first**, then run:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Automate-Pros/reason-remote-setup/main/install.sh | bash
+```
+
+It downloads the same setup bundle and copies the codec and maps into
+`~/Library/Application Support/Propellerhead Software/Remote/`. It also copies into
+`/Library/Application Support/Propellerhead Software/Remote/` if you run it with
+`| sudo bash` instead. Then it prints the IAC Driver steps (Step 3) and the Reason steps
+(Step 4) with the port names filled in. It doesn't create the IAC buses or register the
+surfaces in Reason. Those stay manual on a Mac.
+
+To read the script before running it, open
+[`install.sh`](install.sh), or run `curl -fsSL <url>` without `| bash`.
+
 ---
 
 ## Step 3 — The virtual MIDI ports (manual and macOS)

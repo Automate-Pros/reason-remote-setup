@@ -20,7 +20,7 @@ It works against the bundle as it is published today. No bundle or release chang
 
 ## How it is checked
 
-`node --test tests/`. The tests build a small bundle zip, point the installer at it with
+`node --test`. The tests build a small bundle zip, point the installer at it with
 `REASON_REMOTE_BUNDLE`, and redirect the Remote folders with `REASON_REMOTE_ROOTS`. Linux
 stands in for macOS via `REASON_REMOTE_OS=Darwin`. The installer is also run once against
 the real latest release asset. It is not run on a Mac.
