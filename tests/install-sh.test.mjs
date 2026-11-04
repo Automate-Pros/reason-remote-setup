@@ -246,8 +246,9 @@ describe("install.sh", () => {
     const user = tempDir();
     const res = run({ REASON_REMOTE_BUNDLE: makeBundle(), REASON_REMOTE_ROOTS: user, SUDO_USER: "nobody" });
     assert.equal(res.status, 0, res.out);
-    const owner = spawnSync("stat", ["-c", "%U", join(user, "Maps", "Automate Pros")], { encoding: "utf8" }).stdout.trim();
-    assert.equal(owner, "nobody");
+    // statSync, not `stat -c`: BSD stat on macOS has no -c.
+    const nobody = Number(spawnSync("id", ["-u", "nobody"], { encoding: "utf8" }).stdout.trim());
+    assert.equal(statSync(join(user, "Maps", "Automate Pros")).uid, nobody);
   });
 
   it("under sudo, also gives back the parent folders it had to create", { skip: process.getuid?.() !== 0 && "needs root" }, () => {
